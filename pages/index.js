@@ -20,18 +20,18 @@ export default function Home() {
           </div>
           <h1 className="text-center p-2">E-VOTING PORTAL</h1>
           <div className="mb-3">
-            <label for="email" className="form-label">
+            <label htmlFor="email" className="form-label">
               Student E-mail address
             </label>
             <input type="text" className="form-control" id="email" />
           </div>
           <div className="mb-3">
-            <label for="matric" className="form-label">
+            <label htmlFor="matric" className="form-label">
               Matriculation Number
             </label>
             <input type="text" className="form-control" id="matric" />
           </div>
-          <button type="submit" class="btn btn-secondary w-100">
+          <button type="submit" className="btn btn-secondary w-100">
             Proceed
           </button>
         </div>
