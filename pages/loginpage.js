@@ -1,9 +1,7 @@
 import { Inter } from "@next/font/google";
 import Image from "next/image";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
+export default function LoginPageTwo() {
   return (
     <>
       <div className="row vh-100 align-items-center justify-content-center ">
@@ -17,22 +15,22 @@ export default function Home() {
               alt=">>AEIES"
             />
           </div>
-          <h1 className="text-center p-2">E-VOTING PORTAL</h1>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Student E-mail address
+            <label htmlFor="password" className="form-label">
+              Password was sent to your mail
             </label>
-            <input type="text" className="form-control" id="email" />
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              placeholder="Enter password"
+            />
           </div>
-          <div className="mb-3">
-            <label htmlFor="matric" className="form-label">
-              Matriculation Number
-            </label>
-            <input type="text" className="form-control" id="matric" />
+          <div className="row justify-content-center">
+            <button type="submit" className="btn btn-secondary w-50">
+              Start Voting
+            </button>
           </div>
-          <button type="submit" className="btn btn-secondary w-100">
-            Proceed
-          </button>
         </div>
       </div>
     </>
