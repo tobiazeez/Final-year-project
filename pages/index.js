@@ -1,9 +1,15 @@
 import { Inter } from "@next/font/google";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const router = useRouter();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push("/votingpage");
+  };
   return (
     <>
       <div className="row vh-100 align-items-center justify-content-center ">
@@ -18,21 +24,23 @@ export default function Home() {
             />
           </div>
           <h1 className="text-center p-2">E-VOTING PORTAL</h1>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Student E-mail address
-            </label>
-            <input type="text" className="form-control" id="email" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="matric" className="form-label">
-              Matriculation Number
-            </label>
-            <input type="text" className="form-control" id="matric" />
-          </div>
-          <button type="submit" className="btn btn-secondary w-100">
-            Proceed
-          </button>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Student E-mail address
+              </label>
+              <input type="text" className="form-control" id="email" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="matric" className="form-label">
+                Matriculation Number
+              </label>
+              <input type="text" className="form-control" id="matric" />
+            </div>
+            <button type="submit" onS className="btn btn-secondary w-100">
+              Proceed
+            </button>{" "}
+          </form>
         </div>
       </div>
     </>
