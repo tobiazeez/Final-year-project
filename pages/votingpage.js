@@ -1,18 +1,16 @@
 import Image from "next/image";
+import aeies from "/public/images/aeieslogo.png";
+import styles from "../styles/Home.module.css";
 
 export default function VotingPage() {
+  const presidentialCandidates = listOfCandidates;
   return (
     <>
       <div className="container d-flex flex-column flex-md-row">
         <nav className="navbar navbar-expand-md navbar-light d-flex flex-md-column">
-          <a className="navbar-brand" href="#">
-            <Image
-              src="/images/aeieslogo.png"
-              alt=">>AEIES"
-              width="100"
-              height="100"
-            />
-          </a>
+          <div className={styles.imageContainer}>
+            <Image src={aeies} alt=">>AEIES" fill className={styles.image} />
+          </div>
           <button
             className="navbar-toggler"
             type="button"
@@ -46,73 +44,34 @@ export default function VotingPage() {
           <h1 className="text-center">Voting Page</h1>
           <h6>Presidents</h6>
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            <div className="col">
-              <div className="card h-100">
-                <Image
-                  src="/images/IY.jpeg"
-                  className="card-img-top"
-                  width="100"
-                  height="200"
-                  alt="..."
-                />
-                <div className="card-body">
-                  <h5 className="card-title">
-                    Inyene Eduok <br />
-                    Computer Engineering
-                    <br /> 500 level
-                  </h5>
-                  <p className="card-text">
-                    {" "}
-                    Vote for me and it will be a party everyday in EIE.
-                  </p>
+            {presidentialCandidates.map((candidate, i) => {
+              const { name, course, level, manifesto, image_url } = candidate;
+              return (
+                <div className="col" key={i}>
+                  <div className="card h-100">
+                    <Image
+                      src={image_url}
+                      className="card-img-top"
+                      width="100"
+                      height="200"
+                      alt="..."
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        {name}
+                        <br />
+                        {course}
+                        <br /> {level}
+                      </h5>
+                      <p className="card-text"> {manifesto}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="col">
-              <div className="card h-100">
-                <Image
-                  src="/images/Vicky.jpeg"
-                  className="card-img-top"
-                  alt="..."
-                  width="100"
-                  height="200"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">
-                    Victoria Mogbolu <br />
-                    Computer Engineering
-                    <br /> 500 level
-                  </h5>
-                  <p className="card-text">
-                    If I become president, I will be doing giveaway everyweek
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col">
-              <div className="card h-100">
-                <Image
-                  src="/images/Tobsss.jpeg"
-                  className="card-img-top"
-                  alt="..."
-                  width="100"
-                  height="200"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">
-                    Azeez Oluwatobi <br />
-                    Computer Engineering
-                    <br /> 500 level
-                  </h5>
-                  <p className="card-text">
-                    I do not like to brag, just vote for me and see.
-                  </p>
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end m-4">
-            <button class="btn btn-primary me-md-2" type="submit">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end p-4">
+            <button class="btn btn-primary me-md-2" type="button">
               Vote
             </button>
           </div>
@@ -121,3 +80,28 @@ export default function VotingPage() {
     </>
   );
 }
+
+const listOfCandidates = [
+  {
+    name: "Azeez Oluwatobi",
+    course: "Computer Engineering",
+    level: 500,
+    manifesto: "I do not like to brag, just vote for me and see.",
+    image_url: "/images/Tobsss.jpeg",
+  },
+  {
+    name: "Jane Doe",
+    course: "Information and Communication Engineering",
+    level: 400,
+    manifesto:
+      "I just dey contest, make e no look like say I no serious with my life.",
+    image_url: "/images/IY.jpeg",
+  },
+  {
+    name: "John Doe",
+    course: "Electrical and Electronics Engineering",
+    level: 300,
+    manifesto: "I will show you a town hall different from balabalu.",
+    image_url: "/images/Vicky.jpeg",
+  },
+];
