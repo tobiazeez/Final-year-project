@@ -5,7 +5,7 @@ import LoginPageTwo from "./loginpage";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() 
+export default function Home() {
   const [proceed, setProceed] = useState(false);
 
   return (
