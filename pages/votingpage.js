@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export default function VotingPage() {
   const allRoles = Object.keys(listOfCandidates);
-  // console.log(allRoles);
   const [currentRole, setCurrentRole] = useState(allRoles[0]);
   const candidatesToShow = listOfCandidates[currentRole];
 
