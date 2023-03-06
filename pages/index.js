@@ -37,7 +37,7 @@ export default function Home() {
               </label>
               <input type="text" className="form-control" id="matric" />
             </div>
-            <button type="submit" onS className="btn btn-secondary w-100">
+            <button type="submit" className="btn btn-secondary w-100">
               Proceed
             </button>{" "}
           </form>
