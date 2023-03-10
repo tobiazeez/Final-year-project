@@ -27,7 +27,7 @@ export default function Candidates() {
         {/*collapsible form*/}
         <div className="container mx-auto py-2">
           {" "}
-          {visible ? <Form></Form> : <></>}
+          {visible ? <Form /> : <></>}
         </div>
       </main>
     </section>

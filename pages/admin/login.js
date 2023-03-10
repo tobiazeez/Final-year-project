@@ -1,5 +1,4 @@
 import Image from "next/image";
-import aeies from "/public/images/aeieslogo.png";
 
 export default function Login() {
   return (

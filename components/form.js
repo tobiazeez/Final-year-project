@@ -1,5 +1,5 @@
 import { BiBrush, BiEdit, BiTrashAlt } from "react-icons/bi";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Form() {
   const [array, setArray] = useState([]);
@@ -9,14 +9,20 @@ export default function Form() {
     level: "",
     manifestoe: "",
     position: "",
-    image: "",
   });
+  const [image, setImage] = useState("");
   let [index, setIndex] = useState();
-  let [bolin, setBolin] = useState(false);
-  let { name, course, level, manifestoe, position, image } = formData;
+  let [update, setUpdate] = useState(false);
+  const imageRef = useRef(null);
 
-  const data = (e) => {
+  let { name, course, level, manifestoe, position } = formData;
+
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -41,8 +47,9 @@ export default function Form() {
         level: "",
         manifestoe: "",
         position: "",
-        image: "",
       });
+      imageRef.current.value = "";
+      e.target.reset();
     }
   };
 
@@ -56,7 +63,7 @@ export default function Form() {
   const updateData = (i) => {
     let { name, course, level, manifestoe, position, image } = array[i];
     setFormData({ name, course, level, manifestoe, position, image });
-    setBolin(true);
+    setUpdate(true);
     setIndex(i);
   };
 
@@ -72,7 +79,7 @@ export default function Form() {
       image,
     });
     setArray(total);
-    setBolin(false);
+    setUpdate(false);
     setFormData({
       name: "",
       course: "",
@@ -81,11 +88,83 @@ export default function Form() {
       position: "",
       image: "",
     });
+    e.target.reset();
   };
 
+  const courses = [
+    {
+      label: "CEN",
+      value: "Computer Engineering",
+    },
+    {
+      label: "EEE",
+      value: "Electrical & Information Engineering",
+    },
+    {
+      label: "ICE",
+      value: "Information & Communication Engineering",
+    },
+  ];
+  const options = [
+    {
+      label: 100,
+      value: 100,
+    },
+    {
+      label: 200,
+      value: 200,
+    },
+    {
+      label: 300,
+      value: 300,
+    },
+    {
+      label: 400,
+      value: 400,
+    },
+    {
+      label: 500,
+      value: 500,
+    },
+  ];
+
+  const positions = [
+    {
+      id: 1,
+      name: "President",
+    },
+    {
+      id: 2,
+      name: "Vice President",
+    },
+    {
+      id: 3,
+      name: "Executive Secretary",
+    },
+    {
+      id: 4,
+      name: "Financial Secretary",
+    },
+    {
+      id: 5,
+      name: "Welfare Officer",
+    },
+    {
+      id: 6,
+      name: "Public Relations Officer",
+    },
+    {
+      id: 7,
+      name: "Events Officer",
+    },
+    {
+      id: 8,
+      name: "Academic Officer",
+    },
+  ];
   return (
     <div>
-      <form className="row g-3" onSubmit={!bolin ? handleSubmit : updateInfo}>
+      <form className="row g-3" onSubmit={!update ? handleSubmit : updateInfo}>
         <div className="input-type col-md-6">
           <input
             type="text"
@@ -93,59 +172,79 @@ export default function Form() {
             value={formData.name || ""}
             className="border form-control shadow-none rounded"
             placeholder="FullName"
-            onChange={data}
+            onChange={handleChange}
           ></input>
         </div>
         <div className="input-type col-md-6">
-          <input
-            type="text"
+          <select
+            className="form-select"
+            aria-label="Default select example"
             name="course"
+            onChange={handleChange}
             value={formData.course || ""}
-            className="border form-control shadow-none rounded"
-            placeholder="Course"
-            onChange={data}
-          ></input>
+          >
+            {" "}
+            <option selected>Select Course</option>
+            {courses.map((course, label) => (
+              <option value={course.label} key={label}>
+                {course.value}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className="input-type col-md-6">
-          <input
-            type="number"
+        <div className="input-type col-md-2">
+          <select
+            className="form-select"
+            aria-label="Default select example"
             name="level"
+            onChange={handleChange}
             value={formData.level || ""}
-            className="border form-control shadow-none rounded"
-            placeholder="Level"
-            onChange={data}
-          ></input>
+          >
+            {" "}
+            <option selected>Select Level</option>
+            {options.map((option, i) => (
+              <option value={option.value} key={i}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className="input-type">
+        <div className="input-type  ">
           <input
             type="text"
             name="manifestoe"
             value={formData.manifestoe || ""}
             className="border form-control shadow-none rounded"
             placeholder="Manifestoe"
-            onChange={data}
+            onChange={handleChange}
           ></input>
         </div>
         <div className="input-type col-md-6">
-          <input
-            type="text"
+          <select
+            className="form-select"
+            aria-label="Default select example"
             name="position"
+            onChange={handleChange}
             value={formData.position || ""}
-            className="border form-control shadow-none rounded"
-            placeholder="Position"
-            onChange={data}
-          ></input>
+          >
+            <option selected>Select Position</option>
+            {positions.map((position, id) => (
+              <option value={position.name} key={id}>
+                {position.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="col-md-6">
           <label htmlFor="file">Upload your picture </label>
           <input
             className="form-control"
             name="image"
-            // value={formData.image || ""}
             id="formFileSm"
             type="file"
             accept="image/png, image/jpeg"
-            onChange={data}
+            onChange={handleImageChange}
+            ref={imageRef}
           ></input>
         </div>
         <div className="col-12">
@@ -153,7 +252,7 @@ export default function Form() {
             type="submit"
             className=" flex btn btn-warning text-white px-4 py-2 border rounded justify-center"
           >
-            {!bolin ? `Add data` : `Update data`}
+            {!update ? `Add data` : `Update data`}
             <span className="px-1">
               <BiBrush size={22}></BiBrush>
             </span>
@@ -163,7 +262,6 @@ export default function Form() {
       <table className="table table-hover">
         <thead className="bg-secondary">
           <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Course</th>
             <th>Level</th>
