@@ -2,11 +2,13 @@ import { Inter } from "@next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-export default function LoginPageTwo() {
+const inter = Inter({ subsets: ["latin"] });
+
+export default function AdminLogin() {
   const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push("/votingpage");
+    router.push("/admin/login");
   };
   return (
     <>
@@ -21,23 +23,23 @@ export default function LoginPageTwo() {
               alt=">>AEIES"
             />
           </div>
+          <h1 className="text-center p-2">ADMIN LOGIN</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Password was sent to your mail
+              <label htmlFor="username" className="form-label">
+                Username
               </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Enter password"
-              />
+              <input type="text" className="form-control" id="username" />
             </div>
-            <div className="row justify-content-center">
-              <button type="submit" className="btn btn-secondary w-50">
-                Start Voting
-              </button>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <input type="text" className="form-control" id="password" />
             </div>
+            <button type="submit" className="btn btn-secondary w-100">
+              Login
+            </button>{" "}
           </form>
         </div>
       </div>

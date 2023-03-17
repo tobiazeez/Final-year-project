@@ -1,0 +1,7 @@
+{
+  "databaseURL": "https://Tobi-Azeez-s-workspace-hbddfe.us-east-1.xata.sh/db/voters_app",
+  "codegen": {
+    "output": "util/xata.js",
+    "moduleType": "esm"
+  }
+}

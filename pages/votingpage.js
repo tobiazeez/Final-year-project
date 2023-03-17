@@ -2,6 +2,7 @@ import Image from "next/image";
 import aeies from "/public/images/aeieslogo.png";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
+import { getXataClient } from "./xata";
 
 export default function VotingPage() {
   const allRoles = Object.keys(listOfCandidates);
@@ -284,3 +285,12 @@ const listOfCandidates = {
     },
   ],
 };
+const xata = new getXataClient();
+
+const page = await xata.db.Voters.getPaginated({
+  pagination: {
+    size: 15,
+  },
+});
+
+console.log(page.records);
