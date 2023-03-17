@@ -6,7 +6,6 @@ import { getXataClient } from "./xata";
 
 export default function VotingPage() {
   const allRoles = Object.keys(listOfCandidates);
-
   const [currentRole, setCurrentRole] = useState(allRoles[0]);
   const candidatesToShow = listOfCandidates[currentRole];
 
@@ -266,7 +265,7 @@ const listOfCandidates = {
       course: "Electrical and Electronics Engineering",
       level: 300,
       manifesto: "I tell you say...",
-      image_url: "/images/aeies.jpg",
+      image_url: "/images/aeies.jpeg",
     },
   ],
   academic_officer: [
@@ -275,14 +274,14 @@ const listOfCandidates = {
       course: "Electrical and Electronics Engineering",
       level: 500,
       manifesto: "Let us help each other graduate.",
-      image_url: "/images/aeies.jpg",
+      image_url: "/images/aeies.jpeg",
     },
     {
       name: "Elijah Nelson",
       course: "Information and Communication Engineering",
       level: 400,
       manifesto: "I will make academics fun.",
-      image_url: "/images/aeies.jpg",
+      image_url: "/images/aeies.jpeg",
     },
   ],
 };
