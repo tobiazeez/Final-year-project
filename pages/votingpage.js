@@ -2,62 +2,87 @@ import Image from "next/image";
 import aeies from "/public/images/aeieslogo.png";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function VotingPage() {
   const allRoles = Object.keys(listOfCandidates);
   const [currentRole, setCurrentRole] = useState(allRoles[0]);
   const candidatesToShow = listOfCandidates[currentRole];
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const indexOfCurrentRole = allRoles.findIndex(
-      (role) => role === currentRole
-    );
-    console.log(indexOfCurrentRole, "Index of current role");
+    if (selectedCandidate !== null) {
+      const indexOfCurrentRole = allRoles.findIndex(
+        (role) => role === currentRole
+      );
+      console.log(indexOfCurrentRole, "Index of current role");
 
-    const indexOfNextRole = indexOfCurrentRole + 1;
-    const nextRole = allRoles[indexOfNextRole];
+      const indexOfNextRole = indexOfCurrentRole + 1;
+      const nextRole = allRoles[indexOfNextRole];
 
-    if (indexOfNextRole < allRoles.length) {
-      setCurrentRole(nextRole);
+      if (indexOfNextRole < allRoles.length) {
+        setCurrentRole(allRoles[indexOfNextRole]);
+        setSelectedCandidate(null);
+        alert(
+          `You have voted for ${candidatesToShow[selectedCandidate].name}. Thank you for voting!`
+        );
+      } else {
+        alert("Oya come and be going!");
+      }
     } else {
-      alert("Oya come and be going!");
+      alert("Please select a candidate to vote.");
     }
   };
+
   return (
     <>
-      <div className="container d-flex flex-column flex-md-row">
+      <div className="container d-flex flex-column flex-md-row vh-100 ">
         <nav className="navbar navbar-expand-md navbar-light d-flex flex-md-column">
-          <div className={styles.imageContainer}>
-            <Image src={aeies} alt=">>AEIES" fill className={styles.image} />
-          </div>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle Navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse w-100"
-            id="navbarSupportedContent"
-          >
-            <ul className="navbar-nav w-100 d-flex flex-md-column text-center text-md-end">
-              <li>
-                <a href="a" className="nav-link" aria-current="page">
-                  Candidates
-                </a>
-              </li>
-              <li>
-                <a href="a" className="nav-link">
-                  Results
-                </a>
-              </li>
-            </ul>
+          <div>
+            <div className={styles.imageContainer}>
+              <Image src={aeies} alt=">>AEIES" fill className={styles.image} />
+            </div>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle Navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div
+              className="collapse navbar-collapse w-100"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav w-100 d-flex flex-md-column text-center text-md-end">
+                <li className={styles.links}>
+                  <Link
+                    href="/votingpage"
+                    style={{
+                      textDecoration: "none",
+                      color: "grey",
+                    }}
+                  >
+                    Candidates
+                  </Link>
+                </li>
+                <li className={styles.links}>
+                  <Link
+                    href="/resultspage"
+                    style={{
+                      textDecoration: "none",
+                      color: "grey",
+                    }}
+                  >
+                    Results
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
         <main className="ps-0 ps-md-5 flex-grow-1">
@@ -68,7 +93,13 @@ export default function VotingPage() {
               {candidatesToShow.map((candidate, i) => {
                 const { name, course, level, manifesto, image_url } = candidate;
                 return (
-                  <div className="col" key={i}>
+                  <div
+                    className={`col ${
+                      selectedCandidate === i ? "border border-primary" : ""
+                    }`}
+                    key={i}
+                    onClick={() => setSelectedCandidate(i)}
+                  >
                     <div className="card h-100">
                       <Image
                         src={image_url}
