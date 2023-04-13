@@ -1,44 +1,76 @@
 import Image from "next/image";
-import aeies from "/public/images/aeieslogo.png";
-import styles from "../styles/Home.module.css";
+import { useState } from "react";
+import aeies from "/public/images/aeies.png";
+import Link from "next/link";
+import { MdDashboard } from "react-icons/md";
+import { BsPeople } from "react-icons/bs";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 export default function resultsPage() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isCollapsedSidebar, toggleSidebarCollapse] = useState(false);
+  const toggleSidebarCollapseHandler = () => {
+    toggleSidebarCollapse((prev) => !prev);
+  };
   return (
     <>
-      <div className="container d-flex flex-column flex-md-row">
-        <nav className="navbar navbar-expand-md navbar-light d-flex flex-md-column">
-          <div className={styles.imageContainer}>
-            <Image src={aeies} alt=">>AEIES" fill className={styles.image} />
-          </div>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle Navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse w-100"
-            id="navbarSupportedContent"
-          >
-            <ul className="navbar-nav w-100 d-flex flex-md-column text-center text-md-end">
-              <li>
-                <a href="a" className="nav-link" aria-current="page">
-                  Candidates
-                </a>
-              </li>
-              <li>
-                <a href="a" className="nav-link">
-                  Results
-                </a>
+      <div className="layout">
+        <div className="sidebar_wrapper">
+          <aside className="sidebar" data-collapse={isCollapsedSidebar}>
+            <button className="button" onClick={toggleSidebarCollapseHandler}>
+              <MdOutlineKeyboardArrowLeft />
+            </button>
+            <div className="sidebar_top">
+              <Image
+                src={aeies}
+                width={100}
+                height={80}
+                className="sidebar_logo"
+                alt="logo"
+              />
+              <p className="sidebar_logo-name">CU CHAPTER</p>
+            </div>
+            <ul className="sidebar_list">
+              <li className="sidebar_item">
+                <Link href="/votingpage" className="sidebar_link">
+                  <span className="sidebar_icon">
+                    <BsPeople />
+                  </span>
+                  <span className="sidebar_name">Candidates</span>
+                </Link>
               </li>
             </ul>
-          </div>
-        </nav>
+            <ul className="sidebar_list">
+              <li className="sidebar_item">
+                <div href="/" className="sidebar_link">
+                  <span className="sidebar_icon">
+                    <MdDashboard />
+                  </span>
+                  <span className="sidebar_name">Results</span>
+                  <span className="arrow">&rsaquo;</span>
+                </div>
+                <ul className="sidebar_list">
+                  <li className="sidebar_item">
+                    <Link href="/winnerspage" className="sidebar_link">
+                      <span className="sidebar_icon">
+                        <MdDashboard />
+                      </span>
+                      <span className="sidebar_name">Top candidates</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/resultspage" className="sidebar_link">
+                      <span>
+                        <MdDashboard />
+                      </span>
+                      <span className="sidebar_name">All candidates</span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </aside>
+        </div>
         <table class="table p-4">
           <thead>
             <tr>
