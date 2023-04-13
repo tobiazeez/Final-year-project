@@ -12,6 +12,9 @@ export default function resultsPage() {
   const toggleSidebarCollapseHandler = () => {
     toggleSidebarCollapse((prev) => !prev);
   };
+  const handleLogout = () => {
+    // Code to log the user out of the account
+  };
   return (
     <>
       <div className="layout">
@@ -69,6 +72,23 @@ export default function resultsPage() {
                 </ul>
               </li>
             </ul>
+            <div className="d-grid gap-2 d-md-flex justify-content-md-end p-4">
+              <button
+                className="btn btn-primary me-md-2"
+                type="submit"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+
+            {/* <button
+              type="submit"
+              className="btn btn-secondary w-50"
+              onClick={handleLogout}
+            >
+              Logout
+            </button> */}
           </aside>
         </div>
         <table class="table p-4">
