@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Login() {
   return (
@@ -16,15 +17,24 @@ export default function Login() {
 
             <h6 className="h5 mt-5">Welcome Admin</h6>
           </div>
-          <a href="#" className="text-decoration-none text-capitalize">
+          <Link
+            href="/admin/students"
+            className="text-decoration-none text-capitalize"
+          >
             <div className="link-box mt-3 text-center">List of Students</div>
-          </a>
-          <a href="#" className="text-decoration-none text-capitalize">
+          </Link>
+          <Link
+            href="/admin/candidates"
+            className="text-decoration-none text-capitalize"
+          >
             <div className="link-box mt-3 text-center">List of Candidates</div>
-          </a>
-          <a href="#" className="text-decoration-none text-capitalize">
+          </Link>
+          <Link
+            href="/resultspage"
+            className="text-decoration-none text-capitalize"
+          >
             <div className="link-box mt-3 text-center">Results</div>
-          </a>
+          </Link>
           <div className="row justify-content-center mt-3">
             <button type="submit" className="btn btn-secondary w-25">
               Logout
