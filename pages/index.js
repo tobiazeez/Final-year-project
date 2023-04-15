@@ -1,56 +1,51 @@
-import { Inter } from "@next/font/google";
 import Image from "next/image";
-import { useState } from "react";
-import LoginPageTwo from "./loginpage";
-
-const inter = Inter({ subsets: ["latin"] });
+import Head from "next/head";
+import Link from "next/link";
+import aeies from "/public/images/aeies.png";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const [proceed, setProceed] = useState(false);
-
   return (
-    <>
-      {" "}
-      {proceed ? (
-        <LoginPageTwo />
-      ) : (
-        <div className="row vh-100 align-items-center justify-content-center ">
-          <div className="col-sm-8 col-md-6 col-lg-4 rounded p-4 shadow">
-            <div className="row justify-content-center mb-4">
-              <Image
-                src="/images/aeieslogo.png"
-                className="w-25"
-                width="30"
-                height="24"
-                alt=">>AEIES"
-              />
-            </div>
-            <h1 className="text-center p-2">E-VOTING PORTAL</h1>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setProceed(!proceed);
-              }}
-            >
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Student E-mail address
-                </label>
-                <input type="text" className="form-control" id="email" />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="matric" className="form-label">
-                  Matriculation Number
-                </label>
-                <input type="text" className="form-control" id="matric" />
-              </div>
-              <button type="submit" onS className="btn btn-secondary w-100">
-                Proceed
-              </button>
-            </form>
-          </div>
+    <div className={styles.container}>
+      <Head>
+        <title>Departmental Voting App</title>
+        <meta name="description" content="Departmental Voting App" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main className={styles.main}>
+        <h1 className={styles.title}>
+          Welcome to the Departmental Voting App!
+        </h1>
+
+        <p className={styles.description}>
+          Please login to access the voting system
+        </p>
+
+        <div className={styles.grid}>
+          <Link href="/loginpage" className={styles.card}>
+            <h3>Login &rarr;</h3>
+            <p>Access the voting system</p>
+          </Link>
+          <Link href="/signup" className={styles.card}>
+            <h3>Register &rarr;</h3>
+            <p>Access the Login Page</p>
+          </Link>
         </div>
-      )}
-    </>
+      </main>
+
+      <footer className={styles.footer}>
+        <div className={styles.powered}>
+          Powered by
+          <Image
+            src={aeies}
+            width={100}
+            height={80}
+            className={styles.logo}
+            alt="logo"
+          />
+        </div>
+      </footer>
+    </div>
   );
 }
