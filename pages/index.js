@@ -17,16 +17,16 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to the Departmental Voting App!
         </h1>
-
         <p className={styles.description}>
           Please login to access the voting system
         </p>
-
         <div className={styles.grid}>
           <Link href="/loginpage" className={styles.card}>
             <h3>Login &rarr;</h3>
             <p>Access the voting system</p>
           </Link>
+        </div>{" "}
+        <div className={styles.grid}>
           <Link href="/signup" className={styles.card}>
             <h3>Register &rarr;</h3>
             <p>Access the Login Page</p>
