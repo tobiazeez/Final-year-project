@@ -1,16 +1,47 @@
-import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import axios from "axios";
 
 export default function SignUp() {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
+  const [matricNo, setMatricNo] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State variable for loading state
 
   const router = useRouter();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    router.push("/loginpage");
+    if (!fname || !lname || !email || !matricNo) {
+      alert("All information not entered");
+      return;
+    }
+    setIsLoading(true); // Set loading state to true
+    try {
+      const response = await axios.post(
+        "https://voting-app.adaptable.app/api/v1/auth/signup",
+        {
+          firstname: fname,
+          lastname: lname,
+          email,
+          matricNo,
+        }
+      );
+      console.log(response.data);
+      setResponseMessage(response.data.message);
+      if (response.data.success) {
+        router.push("/loginpage");
+      } else {
+        throw new Error("Sign up failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Sign up failed");
+    } finally {
+      setIsLoading(false); // Set loading state to false
+    }
   };
 
   return (
@@ -19,7 +50,6 @@ export default function SignUp() {
         <form onSubmit={handleSubmit}>
           <h4 className="text-center">Create a secure account</h4>
           <p className="text-center text-muted">Join the vote</p>
-
           <div className="mb-3">
             <label>First name</label>
             <input
@@ -29,7 +59,6 @@ export default function SignUp() {
               onChange={(e) => setFname(e.target.value)}
             />
           </div>
-
           <div className="mb-3">
             <label>Last name</label>
             <input
@@ -39,7 +68,6 @@ export default function SignUp() {
               onChange={(e) => setLname(e.target.value)}
             />
           </div>
-
           <div className="mb-3">
             <label>Email address</label>
             <input
@@ -49,27 +77,36 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
           <div className="mb-3">
             <label>Matriculation Number</label>
             <input
               type="text"
               className="form-control"
               placeholder="Enter matric no"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setMatricNo(e.target.value)}
             />
           </div>
-
+          {responseMessage && (
+            <div className="alert alert-success" role="alert">
+              {responseMessage}
+            </div>
+          )}{" "}
+          {/* Render the response message if it exists */}
           <div className="d-grid">
-            <button type="submit" className="btn btn-primary">
-              Sign Up
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isLoading}
+              onClick={handleSubmit}
+            >
+              {isLoading ? "Loading..." : "Sign Up"}
             </button>
           </div>
           <p className="registered text-right">
             Already registered <Link href="/loginpage">sign in?</Link>
           </p>
         </form>
-      </div>
+      </div>{" "}
     </div>
   );
 }

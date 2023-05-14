@@ -1,14 +1,35 @@
 import { Inter } from "@next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import axios from "axios";
 import aeies from "/public/images/aeies.png";
+import { useState } from "react";
 
 export default function Authentication() {
   const router = useRouter();
-  const handleSubmit = (e) => {
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    router.push("/votingpage");
+    try {
+      const response = await axios.post(
+        "https://voting-app.adaptable.app/api/v1/auth/login",
+        {
+          password: e.target.password.value,
+        }
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        router.push("/votingpage");
+      } else {
+        setError(response.data.message); // Set the error message from the API response
+      }
+    } catch (error) {
+      console.error(error);
+      setError("An error occurred during authentication."); // Set a generic error message
+    }
   };
+
   return (
     <>
       <div className="row vh-100 align-items-center justify-content-center ">
@@ -39,6 +60,8 @@ export default function Authentication() {
                 Start Voting
               </button>
             </div>
+            {error && <p className="text-danger">{error}</p>}{" "}
+            {/* Display the error message if it exists */}
           </form>
         </div>
       </div>
