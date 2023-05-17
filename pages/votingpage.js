@@ -6,6 +6,7 @@ import { MdDashboard } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import axios from "axios";
+import { API } from "./controller/api";
 
 export default function VotingPage() {
   const [isCollapsedSidebar, toggleSidebarCollapse] = useState(false);
@@ -20,16 +21,15 @@ export default function VotingPage() {
 
   const getCandidates = async () => {
     try {
-      const response = await axios.get(
-        "https://voting-app.adaptable.app/api/v1/candidate/position?position=president"
+      const response = await API().get(
+        `/candidate/position?position=president`
       );
-      console.log("response", response.data); // Log the response data
+      console.log("response", response); // Log the response data
       if (response.data.success) {
         setListOfCandidates(response.data.data);
         setCurrentRole(Object.keys(response.data.data)[0]);
       }
       console.log(response.data.data); // Log the list of candidates
-      console.log(response.data.data[0].name); // Log the name of the first candidate
     } catch (error) {
       console.error(error);
     }
@@ -52,7 +52,7 @@ export default function VotingPage() {
         setCurrentRole(allRoles[indexOfNextRole]);
         setSelectedCandidate(null);
         alert(
-          `You have voted for ${listOfCandidates[currentRole][selectedCandidate].name}. Thank you for voting!`
+          "You have voted for ${listOfCandidates[currentRole][selectedCandidate].name}. Thank you for voting!"
         );
       } else {
         alert("Success! VOTES SUBMITTED SUCCESSFULLY");
@@ -61,7 +61,6 @@ export default function VotingPage() {
       alert("Please select a candidate to vote.");
     }
   };
-
   return (
     <div className="layout">
       <div className="sidebar_wrapper">
@@ -129,7 +128,7 @@ export default function VotingPage() {
           <h1 className="text-center">AEIES COUNCIL ELECTION</h1>
           <h6 className="category">
             <p>CATEGORY:</p>
-            {currentRole.replace("_", " ").toUpperCase()}
+            {/* {currentRole.replace("_", " ").toUpperCase()} */}
           </h6>
           <form onSubmit={handleSubmit}>
             <div className="body">

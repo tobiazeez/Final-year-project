@@ -18,6 +18,11 @@ export default function Authentication() {
           password: e.target.password.value,
         }
       );
+      console.log(response);
+      window.localStorage.setItem(
+        "Token",
+        JSON.stringify(response.data.data.token)
+      );
       console.log(response.data);
       if (response.data.success) {
         router.push("/votingpage");
