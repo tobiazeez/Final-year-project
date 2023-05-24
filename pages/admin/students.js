@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { API } from "/Users/oluwatobiazeez/my-voting-app/util/api.js";
-
+import { API } from "../../util/api";
 
 export default function Students() {
   const [students, setStudents] = useState([]);
