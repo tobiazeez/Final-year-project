@@ -1,51 +1,38 @@
-import Image from "next/image";
-import Head from "next/head";
+import indexbg from "../public/indexbg.mp4";
 import Link from "next/link";
-import aeies from "/public/images/aeies.png";
-import styles from "../styles/Home.module.css";
 
-export default function Home() {
+const Landingpage = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Departmental Voting App</title>
-        <meta name="description" content="Departmental Voting App" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to the Departmental Voting App!
-        </h1>
-        <p className={styles.description}>
-          Please login to access the voting system
-        </p>
-        <div className={styles.grid}>
-          <Link href="/loginpage" className={styles.card}>
-            <h3>Login &rarr;</h3>
-            <p>Access the voting system</p>
-          </Link>
-        </div>{" "}
-        <div className={styles.grid}>
-          <Link href="/signup" className={styles.card}>
-            <h3>Register &rarr;</h3>
-            <p>Access the Login Page</p>
-          </Link>
+    <div className="landingpage">
+      <video src={indexbg} autoPlay muted loop className="video-bg" />
+      <div className="bg-overlay"></div>
+      <div className="navbarr">
+        <div className="menu">
+          <div>
+            <Link className="link" href="/admin">
+              Admin
+            </Link>
+          </div>
+          <div></div>
+          <div></div>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <div className={styles.powered}>
-          Powered by
-          <Image
-            src={aeies}
-            width={100}
-            height={80}
-            className={styles.logo}
-            alt="logo"
-          />
-        </div>
-      </footer>
+      </div>
+      <div className="home-text">
+        <h1>AEIES COVENANT UNIVERSITY</h1>
+        <p>Power to the People: Vote Today</p>
+      </div>
+      <div className="home-btn">
+        <Link className="link" href="/signup">
+          Register
+        </Link>
+      </div>{" "}
+      <div className="home-btn">
+        <Link className="link" href="/loginpage">
+          Login
+        </Link>
+      </div>
     </div>
   );
-}
+};
+
+export default Landingpage;

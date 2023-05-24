@@ -48,13 +48,7 @@ export default function Login() {
         <div className="row vh-100 align-items-center justify-content-center ">
           <div className="col-sm-8 col-md-6 col-lg-4 rounded p-4 shadow">
             <div className="row justify-content-center mb-4">
-              <Image
-                src={aeies}
-                className="w-25"
-                width="25"
-                height="24"
-                alt=">>AEIES"
-              />
+              <Image src={aeies} className="w-25" height="24" alt=">>AEIES" />
             </div>
             <h4 className="text-center p-2 ">Login to your account</h4>
             <form onSubmit={handleSubmit}>

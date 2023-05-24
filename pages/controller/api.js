@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const API = () => {
@@ -14,6 +13,7 @@ export const API = () => {
         "Access-Control-Allow-Origin": "*",
       },
     });
+    
   } else {
     // Return a default instance if window is undefined
     return axios.create({

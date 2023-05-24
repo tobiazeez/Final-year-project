@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import { API } from "../controller/api";
+
 export default function Students() {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const response = await API().get("/user");
+      console.log(response);
+      setStudents(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="container">
@@ -13,24 +32,14 @@ export default function Students() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Oluwatobi</td>
-              <td>Azeez</td>
-              <td>azeez.oluwatobi@stu.cu.edu.ng</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>John</td>
-              <td>Doe</td>
-              <td>johndoe@stu.cu.edu.ng</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Jane</td>
-              <td>Doe</td>
-              <td>janedoe@stu.cu.edu.ng</td>
-            </tr>
+            {students.map((student, index) => (
+              <tr key={student.id}>
+                <th scope="row">{index + 1}</th>
+                <td>{student.firstName}</td>
+                <td>{student.lastName}</td>
+                <td>{student.email}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

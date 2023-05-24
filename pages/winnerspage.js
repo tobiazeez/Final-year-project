@@ -1,16 +1,34 @@
 import Image from "next/image";
-import aeies from "/public/images/aeies.png";
-import { useState } from "react";
+import aeies from "../public/images/aeies.png";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { MdDashboard } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { API } from "./controller/api";
 
 export default function WinnersPage() {
   const [isCollapsedSidebar, toggleSidebarCollapse] = useState(false);
+  const [topCandidates, setTopCandidates] = useState([]);
+
   const toggleSidebarCollapseHandler = () => {
     toggleSidebarCollapse((prev) => !prev);
   };
+
+  useEffect(() => {
+    const fetchTopCandidates = async () => {
+      try {
+        const response = await API().get("/candidate/top");
+        console.log("API response:", response);
+        setTopCandidates(response.data);
+      } catch (error) {
+        console.error("Error fetching top candidates:", error);
+      }
+    };
+
+    fetchTopCandidates();
+  }, []);
+
   return (
     <>
       <div className="layout">
@@ -72,106 +90,35 @@ export default function WinnersPage() {
         </div>
 
         <div className="body">
-          <div className="slide-container">
-            <div className="slide-content">
-              <div className="card-wrapper">
-                <div className="card">
-                  <div className="image-content">
-                    <span className="overlay-w"></span>
-                    <div className="card-image">
-                      <Image
-                        src="/images/tobsss.jpeg"
-                        className="card-img"
-                        width="150"
-                        height="150"
-                        alt=">>AEIES"
-                      />
+          {topCandidates.map((candidate) => (
+            <div className="slide-container" key={candidate.id}>
+              <div className="slide-content">
+                <div className="card-wrapper">
+                  <div className="card">
+                    <div className="image-content">
+                      <span className="overlay-w"></span>
+                      <div className="card-image">
+                        <Image
+                          src={candidate.image}
+                          className="card-img"
+                          width="150"
+                          height="150"
+                          alt={candidate.name}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="card-content">
-                    <h2 className="name">Tobi Azeez</h2>
-                    <p>President</p>
-                    <p className="description">Total Number of votes:100</p>
+                    <div className="card-content">
+                      <h2 className="name">{candidate.name}</h2>
+                      <p>{candidate.post}</p>
+                      <p className="description">
+                        Total Number of votes: {candidate.votes}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="slide-container">
-            <div className="slide-content">
-              <div className="card-wrapper">
-                <div className="card">
-                  <div className="image-content">
-                    <span className="overlay-w"></span>
-                    <div className="card-image">
-                      <Image
-                        src="/images/tobsss.jpeg"
-                        className="card-img"
-                        width="150"
-                        height="150"
-                        alt=">>AEIES"
-                      />
-                    </div>
-                  </div>
-                  <div className="card-content">
-                    <h2 className="name">Tobi Azeez</h2>
-                    <p>President</p>
-                    <p className="description">Total Number of votes:100</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="slide-container">
-            <div className="slide-content">
-              <div className="card-wrapper">
-                <div className="card">
-                  <div className="image-content">
-                    <span className="overlay-w"></span>
-                    <div className="card-image">
-                      <Image
-                        src="/images/tobsss.jpeg"
-                        className="card-img"
-                        width="150"
-                        height="150"
-                        alt=">>AEIES"
-                      />
-                    </div>
-                  </div>
-                  <div className="card-content">
-                    <h2 className="name">Tobi Azeez</h2>
-                    <p>President</p>
-                    <p className="description">Total Number of votes:100</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="slide-container">
-            <div className="slide-content">
-              <div className="card-wrapper">
-                <div className="card">
-                  <div className="image-content">
-                    <span className="overlay-w"></span>
-                    <div className="card-image">
-                      <Image
-                        src="/images/tobsss.jpeg"
-                        className="card-img"
-                        width="150"
-                        height="150"
-                        alt=">>AEIES"
-                      />
-                    </div>
-                  </div>
-                  <div className="card-content">
-                    <h2 className="name">Tobi Azeez</h2>
-                    <p>President</p>
-                    <p className="description">Total Number of votes:100</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>
