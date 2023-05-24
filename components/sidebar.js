@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import aeies from "/public/images/aeies.png";
 import Link from "next/link";
 import { MdDashboard } from "react-icons/md";

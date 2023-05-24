@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API } from "../controller/api";
+import { API } from "../util/api";
 
 export default function Students() {
   const [students, setStudents] = useState([]);

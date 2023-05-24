@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { MdDashboard } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import aeies from "/public/images/aeies.png";
 
 export default function Dashboard() {

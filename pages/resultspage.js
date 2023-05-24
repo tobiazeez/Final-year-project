@@ -5,7 +5,7 @@ import Link from "next/link";
 import { MdDashboard } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { API } from "./controller/api";
+import { API } from "../util/api";
 
 const Sidebar = ({ isCollapsed, toggleSidebarCollapse, handleLogout }) => (
   <aside className="sidebar" data-collapse={isCollapsed}>

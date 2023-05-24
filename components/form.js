@@ -1,7 +1,7 @@
 import { BiBrush, BiEdit, BiTrashAlt } from "react-icons/bi";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { API } from "../pages/controller/api";
+import { API } from "../util/api";
 
 export default function Form() {
   const [array, setArray] = useState([]);
